@@ -1,7 +1,8 @@
 version: '3.8'
 services:
   app:
-    image: aoirint/fnaoirintcom:latest
+    # image: aoirint/fnaoirintcom:latest
+    build: .
     ports:
       - '${HOST_PORT}:8000'
     environment:

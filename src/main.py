@@ -6,4 +6,4 @@ from api.routers import (
 )
 
 app = FastAPI()
-app.include_router(site_aoirint_com, prefix='/site.aoirint.com')
+app.include_router(site_aoirint_com.router, prefix='/site.aoirint.com')
