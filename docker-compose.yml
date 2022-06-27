@@ -1,0 +1,7 @@
+version: '3.8'
+services:
+  image: aoirint/fnaoirintcom:latest
+  ports:
+    - '${HOST_PORT}:8000'
+  environment:
+    HMAC_SECRET: $HMAC_SECRET
