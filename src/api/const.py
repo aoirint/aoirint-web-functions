@@ -6,7 +6,7 @@ from fastapi import Request, HTTPException, Header
 
 load_dotenv()
 
-HMAC_SECRET = os.environ['HMAC_SECRET']
+HMAC_SECRET = os.environ['HMAC_SECRET'].encode('ascii')
 
 
 async def hmac_auth(
