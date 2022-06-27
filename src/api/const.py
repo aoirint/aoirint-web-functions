@@ -15,7 +15,9 @@ async def hmac_auth(
 ):
   key = HMAC_SECRET
   msg = await request.body()
-  payload_signature = hmac.new(key=key, digestmod=hashlib.sha256).update(msg=msg).hexdigest()
+  m = hmac.new(key=key, digestmod=hashlib.sha256)
+  m.update(msg=msg)
+  payload_signature = m.hexdigest()
 
   if not hmac.compare_digest(payload_signature, x_gitea_signature):
     raise HTTPException(status_code=403, detail='Invalid signature')
