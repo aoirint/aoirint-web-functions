@@ -14,10 +14,11 @@ async def hmac_auth(
   x_gitea_signature: str = Header(),
 ):
   key = HMAC_SECRET
-  msg = await request.body()
+  msg = (await request.body()).decode('ascii').strip().encode('ascii')
   signature_bytes = hmac.digest(key=key, msg=msg, digest=hashlib.sha256)
 
   given_signature_bytes = x_gitea_signature.encode('ascii')
 
+  print(signature_bytes.decode('ascii'), '-', given_signature_bytes.decode('ascii'))
   if not hmac.compare_digest(signature_bytes, given_signature_bytes):
     raise HTTPException(status_code=403, detail='Invalid signature')
