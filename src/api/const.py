@@ -2,7 +2,7 @@ import hashlib
 import hmac
 import os
 from dotenv import load_dotenv
-from fastapi import Body, Header
+from fastapi import Body, HTTPException, Header
 
 load_dotenv()
 
@@ -17,4 +17,5 @@ async def hmac_auth(
   msg = body
   signature = hmac.digest(key=key, msg=msg, digest=hashlib.sha256)
 
-  return signature == x_gitea_signature
+  if signature != x_gitea_signature:
+    raise HTTPException(status_code=403, detail='Invalid signature')
